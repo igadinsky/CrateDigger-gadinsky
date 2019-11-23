@@ -16,7 +16,7 @@ Once Node.js and Expo CLI are downloaded and installed, `cd` into the Crate Digg
 
 Then, run `npm start` or `expo start` to start the app.
 
-Once it has built, you can scan the QR code on the Expo app on your phone to open up the app (default is in development mode, but recommend switching to production mode).
+Once the application has built, use your phone to scan the QR code found on your computer terminal to open and run the application from the Expo app (default is in development mode, but recommend switching to production mode).
 
 ## Built With
 
@@ -26,12 +26,12 @@ Once it has built, you can scan the QR code on the Expo app on your phone to ope
 
 ## Versioning
 
-For the versions available, see the [tags on this repository](https://github.com/DJUMI/CrateDigger/tags). 
+As new versioning is posted, see the [tags on this repository](https://github.com/igadinsky/CrateDigger-gadinsky). 
 
 ## Authors
 
-* **Jordan Ellerman**
 * **Isaac Gadinsky**
+* **Jordan Ellerman**
 * **Jingyi Dong**
 * **Matias Latham**
 * **Erik Bjorklund**
