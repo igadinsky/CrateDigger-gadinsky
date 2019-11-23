@@ -1,6 +1,6 @@
 # Crate Digger
 
-A smartphone app that recreates the record store experience that lets you dig through crates of music and buy records. Written entirely in JavaScript using the React Native framework and MongoDB databases.
+A smartphone app that recreates the record store experience by letting you dig and search through the crates of music at JiggyJamz (https://www.jiggyjamz.com/) all by the touch of your fingertips. Written entirely in JavaScript using the React Native framework and MongoDB databases.
 
 ## Getting Started
 
