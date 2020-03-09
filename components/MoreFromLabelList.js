@@ -45,6 +45,33 @@ class MoreFromLabelList extends Component {
     }
   };
 
+  uniqueArray(array) {
+    const unique = [];
+    const labelArray = []
+
+    if (unique != undefined && this.state.records != undefined) {
+      for(i=0; i < this.state.records.length; i++){
+        
+        let match = false;
+        if(labelArray.length > 0) {
+          for (j=0; j < labelArray.length; j++) {
+            if (this.state.records[i].release_id == labelArray[j]) {
+              match = true;
+            }
+          }
+          if (!match) {
+            unique.push(this.state.records[i]);
+            labelArray.push(this.state.records[i].release_id);
+          }
+        } else {
+          unique.push(this.state.records[i]);
+          labelArray.push(this.state.records[i].release_id);
+        }
+      }
+    return unique;
+    }
+  }
+
   loadClient() {
     if (Stitch.hasAppClient("crate-digger-stitch-sikln")) {
       const app = Stitch.getAppClient("crate-digger-stitch-sikln");
@@ -95,7 +122,6 @@ class MoreFromLabelList extends Component {
             price: item.price,
             image_url: item.image_url,
             video_url: item.video_url,
-            key: item.listing_id,
           })
 
         }}
@@ -140,9 +166,10 @@ class MoreFromLabelList extends Component {
       }
       return (
         <FlatList
-          data={this.state.records}
+          data={this.uniqueArray(this.state.records)}
           horizontal
           renderItem={this.renderItem}
+          keyExtractor={item => item.listing_id.toString()}
         />
       );
     }

@@ -24,7 +24,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.logoContainer}>
-            <Image source={require("../assets/images/logo.jpg")} style={styles.imageContainer} />
+            <Image source={require("../assets/images/logo.png")} style={styles.imageContainer} />
           </View>
 
           <View style={styles.listHeader}>
@@ -60,6 +60,22 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <View style={styles.listHeader}>
+            <Text style={styles.listHeaderText}>New Drum n Bass</Text>
+          </View>
+
+          <View style={styles.listContainer}>
+            <HomeList query={'New Drum n Bass'} />
+          </View>
+
+          <View style={styles.listHeader}>
+            <Text style={styles.listHeaderText}>New Acid</Text>
+          </View>
+
+          <View style={styles.listContainer}>
+            <HomeList query={'New Acid'} />
+          </View>
+
+          <View style={styles.listHeader}>
             <Text style={styles.listHeaderText}>New Hip-Hop</Text>
           </View>
 
@@ -73,6 +89,14 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.listContainer}>
             <HomeList query={'New Electro'} />
+          </View>
+
+          <View style={styles.listHeader}>
+            <Text style={styles.listHeaderText}>New Deep House</Text>
+          </View>
+
+          <View style={styles.listContainer}>
+            <HomeList query={'New Deep House'} />
           </View>
           
         </ScrollView>
@@ -96,7 +120,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    paddingTop: 25,
+    paddingTop: 35,
   },
   imageContainer: {
     height: 100,

@@ -1,3 +1,14 @@
+High Priority
+
+Features
+    new cart implementation
+    dig screen recommendations
+Bugs
+    more from label list doesn't work with multiple labels
+    UI refactor to get rid of any fixed dimensions by using percentages and flex
+Performance
+    Add pagination to search query
+
 Components
 
 Cart List
@@ -6,31 +17,26 @@ Cart List
         implement quantity
         show cart total
         swap flatlist with react-native-swipe-list-view so we can delete on swipe
-    Bugs
-        cart allows doubles - Meet
-        cart doesn't reload when a new item is added
+        link to cart on discogs
 
 Home List
-    Bugs
-        *duplicates still showing - Issac
 
 More lists
-    Bugs
-        *duplicates still showing - Issac
+    still showing doubles
 
 Screens
 
 Album Details Screen
 
 Filter Screen
+    sort check boxes look odd on Android
+    add genre filters
 
 Home Screen
-    Features
-        add graffiti font - Jordan
+  add border top to bottom tab navigator
 
 Search Screen
     Features
-        *implement format filters - Issac
         add collation to support accents
         add auto-suggestions
         save recent searches and display them when user taps searchbar
@@ -39,30 +45,22 @@ Search Screen
         highlight search input in results
         add unique loading animation
         add option to load more resuts
-        override keyboard to say search instead of return
-        *add Label/release date
     Bugs
-        *close keyboard when accordion opens
-        page finishes loading before drop down menu does
+        close keyboard when accordion opens
         items that are just 12" don't show the "
-        sort filters don't get applied until button is hit twice
+        search results showing doubles
 
 Dig Screen
     Features
         add instructions
-        *recommended query - Issac
+        recommended query
         notice for no items in Cart when recommended selected
-        maybe just add recommended as an option in the action sheet and just have one filter button?
     Bugs
         button text needs to fit on one line(looks fine on iphone 6s but shows up on Android)
         need to handle animation when user swipes a new card before previous spring animation is finished
-        hip-hop genre filter doesn't work
-        query needs some work, only displays items with no genre when no genre is selected 
-            and doesn't allow releases with multiple genres
+        performance issues when many search results
 
 Miscellaneous
 
-Cart and List tests - Erik
-New color palette - Everyone
 Check if loading collection into async storage increases performance
-UI refactor to get rid of any fixed dimensions by using percentages and flex
+

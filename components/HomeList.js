@@ -60,11 +60,21 @@ class HomeList extends Component {
       case 'New Techno':
         this.setState({query: {styles: { $regex: /techno/, '$options': 'i' }} });
         break;
+      case 'New Drum n Bass':
+        this.setState({query: {styles: { $regex: /drum n bass/, '$options': 'i' }} });
+        break;
+      case 'New Acid':
+        this.setState({query: {styles: { $regex: /acid/, '$options': 'i' }} });
+        break;
       case 'New Hip-Hop':
         this.setState({query: {styles: { $regex: /hip hop/, '$options': 'i' }} });
         break;
       case 'New Electro':
         this.setState({query: {styles: { $regex: /electro/, '$options': 'i' }} });
+        break;
+      case 'New Deep House':
+        this.setState({query: {styles: { $regex: /deep house/, '$options': 'i' }} });
+        break;
     }
   }
 
@@ -99,9 +109,36 @@ class HomeList extends Component {
       });
   }
 
+  uniqueArray(array) {
+    const unique = [];
+    const releaseidArray = []
+
+    if (unique != undefined && this.state.records != undefined) {
+      for(i=0; i < this.state.records.length; i++){
+        
+        let match = false;
+        if(releaseidArray.length > 0) {
+          for (j=0; j < releaseidArray.length; j++) {
+            if (this.state.records[i].release_id == releaseidArray[j]) {
+              match = true;
+            }
+          }
+          if (!match) {
+            unique.push(this.state.records[i]);
+            releaseidArray.push(this.state.records[i].release_id);
+          }
+        } else {
+          unique.push(this.state.records[i]);
+          releaseidArray.push(this.state.records[i].release_id);
+        }
+      }
+    return unique;
+    }
+  }
+
   renderItem = ({ item }) => {
     const { navigation } = this.props;
-    
+
     return (
       <TouchableOpacity
         style={styles.itemContainer}
@@ -118,7 +155,6 @@ class HomeList extends Component {
             styles: item.styles,
             image_url: item.image_url,
             video_url: item.video_url,
-            key: item.listing_id,
           })
         }}
       >
@@ -150,6 +186,22 @@ class HomeList extends Component {
 
   render() {
     const { isLoadingComplete } = this.state;
+
+  
+
+    // function onlyUnique(value, index, self) { 
+    //   // console.log("value: " + {value})
+    //   return self.indexOf(value[0]) === index;
+    // }
+    
+    // if (this.state.records != undefined) {
+    //   // console.log("\n\n\n\n") 
+    //   // console.log(this.state.records) 
+    //   var unique = this.state.records.filter( onlyUnique ); // returns ['a', 1, 2, '1']
+    
+    //   // console.log(unique)    
+    // }
+
    
     if (isLoadingComplete) {
       //list is empty
@@ -165,9 +217,10 @@ class HomeList extends Component {
       //list
       return (
         <FlatList
-          data={this.state.records}
+          data={this.uniqueArray(this.state.records)}
           horizontal
           renderItem={this.renderItem}
+          keyExtractor={item => item.listing_id.toString()}
         />
       );
     }
