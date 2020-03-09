@@ -12,7 +12,7 @@ import { DeckSwiper, Button, Text } from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 import { withNavigation } from 'react-navigation';
 
-let genres = ['House', 'Techno', 'Hip hop', 'Electro', 'Drum n Bass', 'Disco', 'None', 'Cancel'];
+let genres = ['Acid', 'Deep House', 'Disco', 'Downtempo', 'Drum n Bass', 'Electro', 'Hip-hop', 'House', 'Techno', 'None', 'Cancel'];
 let darkBlue = '#0b121c';
 let nearWhite = '#fafafa';
 let seaGreen = '#009F93';
@@ -25,7 +25,6 @@ class DigScreen extends React.Component {
       client: undefined,
       currentUserId: undefined,
       genre: '',
-      isInitialLoadComplete: false,
       isLoadingComplete: false,
       recommended: false,
       records: undefined,
@@ -67,17 +66,13 @@ class DigScreen extends React.Component {
       "mongodb-atlas"
     );
     const { genre } = this.state;
-    const query = new RegExp(genre);
     const db = mongoClient.db("crate-digger");
     const records = db.collection("music-0");
     records
-      .aggregate([{ $match: { status: "For Sale" } }, { $sample: { size: 100 } }])
-      //.aggregate([{ $regexFindAll: { $and: [{ status: "For Sale" }, { styles: { $regex: query, '$options': 'i' } }] }}, { $sample: { size: 100 } }])
-      //.find({ $and: [{ status: "For Sale" }, { styles: { $regex: query, '$options': 'i' } }], limit: 10 })
+      .aggregate([{ $match: { $and: [{ status: "For Sale" }, { styles: { $regex: genre, '$options': 'i' } }] }}, { $sample: { size: 100 } }])
       .asArray()
       .then(records => {
         this.setState({ records });
-        console.log("load length: ", this.state.records.length);
         this.setState({ isLoadingComplete: true });
       })
       .catch(err => {
@@ -91,7 +86,6 @@ class DigScreen extends React.Component {
 
   render() {
     const { genre, isLoadingComplete, records } = this.state;
-    const { cart } = this.state;
     const { navigation } = this.props;
     if (isLoadingComplete) {
       return (
@@ -161,7 +155,7 @@ class DigScreen extends React.Component {
                     onPress={() => {
                       this.state.cart.push(item);
                       Alert.alert('Added!')
-                    }}
+                      }}
                   >
                     <Text style={styles.buttonText}>+ Add to Cart</Text>
                   </Button>
@@ -180,17 +174,20 @@ class DigScreen extends React.Component {
             <ActionSheet
               ref={o => this.ActionSheet = o}
               options={genres}
-              cancelButtonIndex={7}
-              destructiveButtonIndex={6}
+              cancelButtonIndex={10}
+              destructiveButtonIndex={9}
               style={styles.actionSheet}
               onPress={(index) => {
-                if (index == 6) this.setState({ genre: '' })
-                else this.setState({ genre: genres[index] })
-                this.loadClient();
+                if (index == 9) {
+                  this.setState({ genre: '' }, this.onRefresh)
+                }
+                else if (index != 10) {
+                  this.setState({ genre: genres[index] }, this.onRefresh)
+                }  
               }}
             />
 
-            <Button
+            {/*<Button
               style={
                 this.state.recommended
                   ? styles.recommendedButtonOn
@@ -202,7 +199,7 @@ class DigScreen extends React.Component {
               }}
             >
               <Text style={styles.filterButtonText}>Recommended</Text>
-            </Button>
+            </Button>*/}
           </View>
         </View>
       );
@@ -236,7 +233,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignSelf: 'center',
   },
-  headerText: {
+  headerText: {  
     color: nearWhite,
     fontSize: 20,
     fontWeight: 'bold',
@@ -289,7 +286,7 @@ const styles = StyleSheet.create({
     marginTop: 450,
     flexDirection: 'row',
     paddingHorizontal: 40,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   genreButton: {
     borderWidth: 1,

@@ -20,6 +20,7 @@ export default class App extends React.Component {
     this.state = {
       currentUserId: undefined,
       client: undefined,
+      fontLoaded: false,
       isLoadingComplete: false,
       cart: global.cart,
     };
@@ -31,7 +32,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (!this.state.fontLoaded && !this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -53,11 +54,13 @@ export default class App extends React.Component {
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/vinylstock.jpg'),
-        require('./assets/images/logo.jpg'),
+        require('./assets/images/logo.png'),
       ]),
       Font.loadAsync({
         ...Icon.Ionicons.font,
-        "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf")
+        "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+        Roboto: require('./assets/fonts/Roboto.ttf'),
+        Roboto_medium: require("./assets/fonts/Roboto_medium.ttf"),
       })
     ]);
   };
@@ -95,7 +98,6 @@ export default class App extends React.Component {
       console.error(err)
     });
   }
-
 }
 
 const styles = StyleSheet.create({
